@@ -26,3 +26,4 @@ services:
             #The following are used to set up testing and to set up which module you are testing
             #True if you want to enable testing, false if not
             - env_ODOO_TESTING=true
+            - env_ODOO_TESTING_REPORT_DIRECTORY=/mnt/extra-addons
