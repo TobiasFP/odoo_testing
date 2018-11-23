@@ -15,7 +15,7 @@ services:
             - 8069:8069
         volumes:
             - ./data-odoo:/var/lib/odoo/filestore
-            - ./data-addons:/mnt/extra-addons
+            - /home/tobias/workspace/kluboplevelser/extra-addons:/mnt/extra-addons
         links:
             - postgres-service-testing:db
         depends_on:
