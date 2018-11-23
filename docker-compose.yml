@@ -1,0 +1,28 @@
+version : '3'
+
+services:
+    postgres-service-testing:
+        image: "postgres:9.4"
+        environment:
+            - POSTGRES_USER=odoo
+            - POSTGRES_PASSWORD=WhyDoWeNeedAPassword
+        volumes:
+          - ./postgres-data:/var/lib/postgresql/data
+    odoo-service-testing:
+        build:
+          context: ./build
+        ports:
+            - 8069:8069
+        volumes:
+            - ./data-odoo:/var/lib/odoo/filestore
+            - ./data-addons:/mnt/extra-addons
+        links:
+            - postgres-service-testing:db
+        depends_on:
+            - postgres-service-testing
+        environment:
+            - POSTGRES_USER=odoo
+            - POSTGRES_PASSWORD=WhyDoWeNeedAPassword
+            #The following are used to set up testing and to set up which module you are testing
+            #True if you want to enable testing, false if not
+            - env_ODOO_TESTING=true
