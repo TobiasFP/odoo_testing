@@ -10,7 +10,8 @@ set -e
 : ${PASSWORD:=${DB_ENV_POSTGRES_PASSWORD:=${POSTGRES_PASSWORD:='odoo'}}}
 if [ "$env_ODOO_TESTING" == "true" ]; then
   odooTestRun="odoo --test-enable --dev=all"
-  addTestVar="--test-enable --dev=all"
+  addTestVar="--test-enable"
+  addDevVar="--dev=all"
 fi
 echo "printenv: "
 echo $odooTestRun
@@ -37,7 +38,7 @@ case "$1" in
             exec odoo "$@"
         else
 	          echo "Running 2"
-            exec odoo "$addTestVar" "${DB_ARGS[@]}"
+            exec odoo "$addTestVar" "$addDevVar" "${DB_ARGS[@]}"
         fi
         ;;
     -*)
